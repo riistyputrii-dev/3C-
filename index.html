@@ -21,51 +21,76 @@ body {
 header {
     background: #ff7417;
     color: white;
-    padding: 25px 20px;
     text-align: center;
+    padding: 25px 15px;
 }
 
 header h1 {
     margin: 0;
-    font-size: 28px;
+    font-size: 30px;
 }
 
 header p {
     margin: 8px 0 0;
+    font-size: 15px;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: auto;
-    padding: 20px;
+    padding: 18px;
 }
 
 .card {
     background: white;
-    border-radius: 18px;
+    border-radius: 20px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 3px 15px rgba(0,0,0,.08);
 }
 
 h2 {
     margin-top: 0;
 }
 
+.statistik {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+}
+
+.stat {
+    background: #fff1e5;
+    padding: 16px;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.stat span {
+    display: block;
+    font-size: 14px;
+}
+
+.stat strong {
+    display: block;
+    font-size: 20px;
+    margin-top: 7px;
+}
+
 input,
 select,
 button {
     width: 100%;
-    padding: 13px;
+    padding: 14px;
     margin-top: 8px;
     margin-bottom: 10px;
-    border-radius: 10px;
-    font-size: 15px;
+    border-radius: 12px;
+    font-size: 16px;
 }
 
 input,
 select {
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     background: white;
 }
 
@@ -74,109 +99,120 @@ button {
     background: #ff7417;
     color: white;
     font-weight: bold;
-    cursor: pointer;
 }
 
-button.hapus {
-    background: #dc3545;
-}
-
-button.hijau {
-    background: #198754;
-}
-
-button.biru {
-    background: #3478f6;
+button:hover {
+    opacity: .9;
 }
 
 .info {
     background: #fff1e5;
     padding: 15px;
-    border-radius: 12px;
-    margin-top: 10px;
+    border-radius: 14px;
 }
 
-.statistik {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-}
-
-.stat {
-    background: #fff4e9;
-    padding: 15px 8px;
-    border-radius: 12px;
-    text-align: center;
-}
-
-.stat strong {
-    display: block;
-    font-size: 18px;
-    margin-top: 5px;
-}
-
-.siswa-item,
-.pengeluaran-item {
-    border: 1px solid #eee;
-    padding: 12px;
-    border-radius: 12px;
-    margin-top: 10px;
-}
-
-.sudah {
-    color: #198754;
-    font-weight: bold;
-}
-
-.belum {
-    color: #dc3545;
-    font-weight: bold;
+.tabel-wrapper {
+    overflow-x: auto;
 }
 
 table {
-    width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
-    font-size: 14px;
+    width: 100%;
+    min-width: 1100px;
 }
 
 th,
 td {
     border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
+    text-align: center;
+    white-space: nowrap;
 }
 
 th {
-    background: #fff1e5;
+    background: #ff7417;
+    color: white;
 }
 
-.total {
+td.nama {
+    text-align: left;
+    font-weight: bold;
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 2;
+}
+
+.bayar {
+    background: #198754;
+    color: white;
+    border-radius: 7px;
+    padding: 6px;
+    font-weight: bold;
+}
+
+.belum {
+    background: #f2f2f2;
+    color: #999;
+    border-radius: 7px;
+    padding: 6px;
+}
+
+.lunas {
+    background: #fff200 !important;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.total-box {
     background: #e9f8ef;
-    padding: 15px;
-    border-radius: 12px;
+    border-radius: 14px;
+    padding: 18px;
     margin-top: 15px;
     font-weight: bold;
 }
 
-.kosong {
-    color: #777;
-    text-align: center;
-    padding: 15px;
+.daftar-pembayaran {
+    margin-top: 15px;
 }
 
-.small {
+.item-pembayaran {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 8px;
+}
+
+.cash {
+    color: #198754;
+    font-weight: bold;
+}
+
+.transfer {
+    color: #3478f6;
+    font-weight: bold;
+}
+
+.catatan {
+    color: #777;
     font-size: 13px;
-    color: #777;
 }
 
-@media (max-width: 600px) {
+@media(max-width:600px) {
     .statistik {
         grid-template-columns: 1fr;
     }
 
-    table {
-        font-size: 12px;
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 25px;
     }
 }
 </style>
@@ -191,198 +227,448 @@ th {
 
 <div class="container">
 
-    <!-- RINGKASAN -->
-    <div class="card">
-        <h2>📊 Ringkasan Dana</h2>
+<!-- RINGKASAN -->
+<div class="card">
+    <h2>📊 Ringkasan Dana</h2>
 
-        <div class="statistik">
-            <div class="stat">
-                Dana Masuk
-                <strong id="totalMasuk">Rp0</strong>
-            </div>
+    <div class="statistik">
 
-            <div class="stat">
-                Pengeluaran
-                <strong id="totalKeluar">Rp0</strong>
-            </div>
-
-            <div class="stat">
-                Saldo
-                <strong id="saldo">Rp0</strong>
-            </div>
+        <div class="stat">
+            <span>💰 Dana Masuk</span>
+            <strong id="totalMasuk">Rp0</strong>
         </div>
-    </div>
 
-
-    <!-- REKENING -->
-    <div class="card">
-        <h2>🏦 Rekening Pembayaran</h2>
-
-        <div class="info">
-            <strong>Bank BRI</strong><br>
-            a.n. Widi Widayanti<br>
-            <span class="small">
-                Nomor rekening dapat dicantumkan melalui pengaturan admin.
-            </span>
+        <div class="stat">
+            <span>💸 Pengeluaran</span>
+            <strong id="totalKeluar">Rp0</strong>
         </div>
+
+        <div class="stat">
+            <span>💵 Saldo</span>
+            <strong id="saldo">Rp0</strong>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- REKENING -->
+<div class="card">
+    <h2>🏦 Rekening Pembayaran</h2>
+
+    <div class="info">
+        <strong>BRI</strong><br>
+        a.n. Widi Widayanti
+        <br><br>
+        <span class="catatan">
+            Nomor rekening tidak ditampilkan di website publik.
+        </span>
+    </div>
+</div>
+
+
+<!-- CATAT PEMBAYARAN -->
+<div class="card">
+
+    <h2>💳 Catat Pembayaran Baru</h2>
+
+    <label>Nama siswa</label>
+
+    <select id="pilihSiswa">
+        <option value="">Pilih nama siswa</option>
+    </select>
+
+
+    <label>Bulan</label>
+
+    <select id="pilihBulan">
+        <option value="">Pilih bulan</option>
+    </select>
+
+
+    <div class="form-grid">
+
+        <div>
+            <label>Nominal</label>
+            <input
+                type="number"
+                id="nominal"
+                value="15000"
+            >
+        </div>
+
+        <div>
+            <label>Cara pembayaran</label>
+
+            <select id="caraBayar">
+                <option value="Cash">💵 Cash</option>
+                <option value="Transfer">🏦 Transfer</option>
+            </select>
+        </div>
+
     </div>
 
 
-    <!-- TAMBAH SISWA -->
-    <div class="card">
-        <h2>👩‍🎓 Tambah Siswa</h2>
+    <button onclick="simpanPembayaran()">
+        ✅ Simpan Pembayaran
+    </button>
 
-        <input
-            type="text"
-            id="namaSiswa"
-            placeholder="Masukkan nama siswa"
-        >
-
-        <button onclick="tambahSiswa()">
-            ➕ Tambah Siswa
-        </button>
-
-        <div id="daftarSiswa"></div>
-    </div>
+</div>
 
 
-    <!-- PEMBAYARAN -->
-    <div class="card">
-        <h2>💳 Catat Pembayaran</h2>
+<!-- REKAP BULANAN -->
+<div class="card">
 
-        <select id="pilihSiswa">
-            <option value="">Pilih nama siswa</option>
-        </select>
+    <h2>📅 Rekap Pembayaran Juli–Juni</h2>
 
-        <input
-            type="number"
-            id="nominal"
-            placeholder="Nominal pembayaran"
-        >
+    <p class="catatan">
+        Setiap ceklis bernilai Rp15.000.
+        Baris kuning adalah siswa yang pada data awal sudah lunas 12 bulan.
+    </p>
 
-        <input
-            type="date"
-            id="tanggalBayar"
-        >
-
-        <button onclick="tambahPembayaran()">
-            💰 Simpan Pembayaran
-        </button>
-
-        <div id="daftarPembayaran"></div>
-    </div>
-
-
-    <!-- PENGELUARAN -->
-    <div class="card">
-        <h2>📋 Laporan Pengeluaran</h2>
+    <div class="tabel-wrapper">
 
         <table>
+
             <thead>
+
+                <tr>
+                    <th>No</th>
+                    <th>Nama Anak</th>
+
+                    <th>Juli</th>
+                    <th>Agustus</th>
+                    <th>September</th>
+                    <th>Oktober</th>
+                    <th>November</th>
+                    <th>Desember</th>
+                    <th>Januari</th>
+                    <th>Februari</th>
+                    <th>Maret</th>
+                    <th>April</th>
+                    <th>Mei</th>
+                    <th>Juni</th>
+
+                    <th>Total</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="tabelSiswa"></tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- RIWAYAT -->
+<div class="card">
+
+    <h2>🧾 Riwayat Pembayaran</h2>
+
+    <div id="riwayatPembayaran">
+        Belum ada pembayaran baru.
+    </div>
+
+</div>
+
+
+<!-- PENGELUARAN -->
+<div class="card">
+
+    <h2>📋 Laporan Pengeluaran</h2>
+
+    <div class="tabel-wrapper">
+
+        <table>
+
+            <thead>
+
                 <tr>
                     <th>No</th>
                     <th>Keperluan</th>
                     <th>Uang Keluar</th>
                     <th>Tanggal</th>
                 </tr>
+
             </thead>
 
             <tbody id="tabelPengeluaran"></tbody>
+
         </table>
 
-        <div class="total">
-            Total Pengeluaran:
-            <span id="totalPengeluaran">Rp0</span>
-        </div>
     </div>
 
-
-    <!-- TAMBAH PENGELUARAN -->
-    <div class="card">
-        <h2>➕ Tambah Pengeluaran</h2>
-
-        <input
-            type="text"
-            id="keperluan"
-            placeholder="Contoh: Fotocopy"
-        >
-
-        <input
-            type="number"
-            id="uangKeluar"
-            placeholder="Jumlah uang"
-        >
-
-        <input
-            type="date"
-            id="tanggalKeluar"
-        >
-
-        <button onclick="tambahPengeluaran()">
-            Simpan Pengeluaran
-        </button>
+    <div class="total-box">
+        Total Pengeluaran:
+        <span id="totalPengeluaran">Rp0</span>
     </div>
+
+</div>
+
+
+<!-- TAMBAH PENGELUARAN -->
+<div class="card">
+
+    <h2>➕ Tambah Pengeluaran</h2>
+
+    <input
+        type="text"
+        id="keperluan"
+        placeholder="Keperluan pengeluaran"
+    >
+
+    <input
+        type="number"
+        id="uangKeluar"
+        placeholder="Jumlah uang"
+    >
+
+    <input
+        type="date"
+        id="tanggalKeluar"
+    >
+
+    <button onclick="tambahPengeluaran()">
+        💸 Simpan Pengeluaran
+    </button>
+
+</div>
 
 </div>
 
 
 <script>
 
-/* =========================
-   DATA SISWA
-========================= */
+/* ============================
+   PENGATURAN
+============================ */
 
-let siswa = JSON.parse(
-    localStorage.getItem("siswaDanaKelas")
-) || [];
+const NOMINAL_BULANAN = 15000;
 
-
-/* =========================
-   DATA PEMBAYARAN
-========================= */
-
-let pembayaran = JSON.parse(
-    localStorage.getItem("pembayaranDanaKelas")
-) || [];
-
-
-/* =========================
-   DATA PENGELUARAN
-========================= */
-
-let pengeluaran = [
-    {
-        keperluan: "Snack Burger 17 Agustus",
-        jumlah: 500000,
-        tanggal: "17/08/2026"
-    },
-    {
-        keperluan: "Tali rapia rumbai-rumbai",
-        jumlah: 130000,
-        tanggal: "17/08/2026"
-    },
-    {
-        keperluan: "Fotocopy ulangan",
-        jumlah: 54000,
-        tanggal: "20/08/2026"
-    },
-    {
-        keperluan: "Fotocopy modul dan soal",
-        jumlah: 62500,
-        tanggal: "02/09/2026"
-    }
+const bulan = [
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni"
 ];
 
-let tambahanPengeluaran = JSON.parse(
-    localStorage.getItem("tambahanPengeluaran")
-) || [];
+
+/* ============================
+   DATA SISWA
+============================ */
+
+const siswa = [
+
+"Adrian Bramasta",
+"Afrizal Renaldy",
+"Aisyah Safitri",
+"Ajie Ibrahim A.",
+"Akbar Nugraha N.",
+"Alkhalifi Zikri A.",
+"Andika Syahputra",
+"Aqila Nurmala",
+"Ayasha Kalisha F.",
+"Arka Caesar P.",
+"Basmala Ibrahim",
+"Ben Abidzar A.",
+"Al fatih",
+"Kenzia Athalia N.",
+"Keysa Alunna S.",
+"Latifa Khoirunnisa",
+"M. Miftahul Al-Fa",
+"M. Rasyid Arkan",
+"M. Shaka Al-batt",
+"Matthew Gamalie",
+"Nadhifa Azaahra",
+"Rasya Ramadha",
+"Regita Syafira Y.",
+"Rizkya Aqila",
+"Sheira Nafhisa A.",
+"Zaidan Raffan A.",
+"Zakia Camelia",
+"Zayn Mohas M.",
+"Zulaika Shanum",
+"Bintang Afifah",
+"Azril Rahandika",
+"Malika"
+
+];
 
 
-/* =========================
-   FORMAT RUPIAH
-========================= */
+/* ============================
+   DATA AWAL DARI TABEL
+============================ */
+
+/*
+1 = sudah bayar
+0 = belum bayar
+
+Urutan:
+Juli sampai Juni
+*/
+
+const dataAwal = [
+
+[1,1,1,0,0,0,0,0,0,0,0,0],
+
+[0,0,0,0,0,0,0,0,0,0,0,0],
+
+[1,1,1,1,0,0,0,0,0,0,0,0],
+
+[1,1,1,1,1,1,0,0,0,0,0,0],
+
+[1,1,1,1,0,0,0,0,0,0,0,0],
+
+[0,0,0,0,0,0,0,0,0,0,0,0],
+
+[1,1,1,1,1,1,1,1,1,1,1,1],
+
+[1,1,0,0,0,0,0,0,0,0,0,0],
+
+[1,1,1,1,1,1,1,1,0,0,0,0],
+
+[1,1,1,1,1,1,1,1,1,1,1,1],
+
+[1,1,1,1,1,1,1,1,1,1,1,1],
+
+[1,1,0,0,0,0,0,0,0,0,0,0],
+
+[1,1,1,1,0,0,0,0,0,0,0,0],
+
+[1,1,1,1,1,1,1,1,1,1,1,1],
+
+[1,1,0,0,0,0,0,0,0,0,0,0],
+
+[1,1,1,0,0,0,0,0,0,0,0,0],
+
+[0,0,0,0,0,0,0,0,0,0,0,0],
+
+[1,1,1,1,1,1,1,1,1,1,1,1],
+
+[1,1,1,1,1,1,1,1,1,1,1,1],
+
+[1,0,0,0,0,0,0,0,0,0,0,0],
+
+[1,1,0,0,0,0,0,0,0,0,0,0],
+
+[1,1,0,0,0,0,0,0,0,0,0,0],
+
+[1,1,1,0,0,0,0,0,0,0,0,0],
+
+[1,1,1,0,0,0,0,0,0,0,0,0],
+
+[1,1,0,0,0,0,0,0,0,0,0,0],
+
+[1,1,1,1,1,1,1,1,1,1,1,1],
+
+[0,0,0,0,0,0,0,0,0,0,0,0],
+
+[1,1,1,0,0,0,0,0,0,0,0,0],
+
+[1,1,0,0,0,0,0,0,0,0,0,0],
+
+[0,0,0,0,0,0,0,0,0,0,0,0],
+
+[1,0,0,0,0,0,0,0,0,0,0,0],
+
+[1,1,1,0,0,0,0,0,0,0,0,0]
+
+];
+
+
+/* ============================
+   SISWA YANG LUNAS 12 BULAN
+============================ */
+
+const siswaLunas = [
+    6,
+    9,
+    10,
+    13,
+    17,
+    18,
+    25
+];
+
+
+/* ============================
+   LOCAL STORAGE
+============================ */
+
+const STORAGE =
+    "danaKelas3C_pembayaran_v2";
+
+let pembayaran =
+    JSON.parse(
+        localStorage.getItem(STORAGE)
+    );
+
+
+/*
+Kalau belum ada data,
+buat dari tabel awal.
+*/
+
+if (!pembayaran) {
+
+    pembayaran = [];
+
+    siswa.forEach((nama, siswaIndex) => {
+
+        bulan.forEach((namaBulan, bulanIndex) => {
+
+            if (
+                dataAwal[siswaIndex][bulanIndex] === 1
+            ) {
+
+                pembayaran.push({
+                    siswa: siswaIndex,
+                    bulan: bulanIndex,
+                    nominal: NOMINAL_BULANAN,
+                    cara: "Data awal"
+                });
+
+            }
+
+        });
+
+    });
+
+    simpanData();
+}
+
+
+/* ============================
+   SIMPAN DATA
+============================ */
+
+function simpanData() {
+
+    localStorage.setItem(
+        STORAGE,
+        JSON.stringify(pembayaran)
+    );
+
+}
+
+
+/* ============================
+   RUPIAH
+============================ */
 
 function rupiah(angka) {
+
     return new Intl.NumberFormat(
         "id-ID",
         {
@@ -391,173 +677,195 @@ function rupiah(angka) {
             maximumFractionDigits: 0
         }
     ).format(angka);
+
 }
 
 
-/* =========================
-   TAMBAH SISWA
-========================= */
-
-function tambahSiswa() {
-
-    const input =
-        document.getElementById("namaSiswa");
-
-    const nama =
-        input.value.trim();
-
-    if (!nama) {
-        alert("Masukkan nama siswa terlebih dahulu.");
-        return;
-    }
-
-    siswa.push({
-        id: Date.now(),
-        nama: nama
-    });
-
-    localStorage.setItem(
-        "siswaDanaKelas",
-        JSON.stringify(siswa)
-    );
-
-    input.value = "";
-
-    tampilkanSiswa();
-    tampilkanPilihanSiswa();
-}
-
-
-/* =========================
-   TAMPILKAN SISWA
-========================= */
-
-function tampilkanSiswa() {
-
-    const tempat =
-        document.getElementById("daftarSiswa");
-
-    if (siswa.length === 0) {
-
-        tempat.innerHTML =
-            '<div class="kosong">Belum ada siswa.</div>';
-
-        return;
-    }
-
-    tempat.innerHTML = siswa.map(s => {
-
-        const dataBayar =
-            pembayaran.find(
-                p => p.siswaId === s.id
-            );
-
-        return `
-            <div class="siswa-item">
-
-                <strong>${s.nama}</strong><br>
-
-                ${
-                    dataBayar
-                    ?
-                    `<span class="sudah">
-                        ✅ Sudah Bayar
-                    </span>`
-                    :
-                    `<span class="belum">
-                        ❌ Belum Bayar
-                    </span>`
-                }
-
-                <button
-                    class="hapus"
-                    onclick="hapusSiswa(${s.id})">
-                    Hapus
-                </button>
-
-            </div>
-        `;
-
-    }).join("");
-}
-
-
-/* =========================
+/* ============================
    PILIHAN SISWA
-========================= */
+============================ */
 
-function tampilkanPilihanSiswa() {
+function isiPilihanSiswa() {
 
     const select =
-        document.getElementById("pilihSiswa");
+        document.getElementById(
+            "pilihSiswa"
+        );
 
-    select.innerHTML =
-        '<option value="">Pilih nama siswa</option>';
+    siswa.forEach(
+        (nama,index) => {
 
-    siswa.forEach(s => {
+            const option =
+                document.createElement(
+                    "option"
+                );
 
-        const option =
-            document.createElement("option");
+            option.value = index;
+            option.textContent = nama;
 
-        option.value = s.id;
-        option.textContent = s.nama;
+            select.appendChild(option);
 
-        select.appendChild(option);
-    });
+        }
+    );
+
 }
 
 
-/* =========================
-   HAPUS SISWA
-========================= */
+/* ============================
+   PILIHAN BULAN
+============================ */
 
-function hapusSiswa(id) {
+function isiPilihanBulan() {
 
-    if (
-        !confirm(
-            "Hapus siswa ini?"
-        )
-    ) {
-        return;
-    }
-
-    siswa =
-        siswa.filter(
-            s => s.id !== id
+    const select =
+        document.getElementById(
+            "pilihBulan"
         );
 
-    pembayaran =
-        pembayaran.filter(
-            p => p.siswaId !== id
-        );
+    bulan.forEach(
+        (nama,index) => {
 
-    localStorage.setItem(
-        "siswaDanaKelas",
-        JSON.stringify(siswa)
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value = index;
+            option.textContent = nama;
+
+            select.appendChild(option);
+
+        }
     );
 
-    localStorage.setItem(
-        "pembayaranDanaKelas",
-        JSON.stringify(pembayaran)
-    );
-
-    tampilkanSiswa();
-    tampilkanPilihanSiswa();
-    tampilkanPembayaran();
-    hitungRingkasan();
 }
 
 
-/* =========================
-   TAMBAH PEMBAYARAN
-========================= */
+/* ============================
+   CEK PEMBAYARAN
+============================ */
 
-function tambahPembayaran() {
+function cariPembayaran(
+    siswaIndex,
+    bulanIndex
+) {
 
-    const siswaId =
+    return pembayaran.find(
+        p =>
+            p.siswa === siswaIndex &&
+            p.bulan === bulanIndex
+    );
+
+}
+
+
+/* ============================
+   TABEL SISWA
+============================ */
+
+function tampilkanTabel() {
+
+    const tbody =
+        document.getElementById(
+            "tabelSiswa"
+        );
+
+    tbody.innerHTML = "";
+
+    siswa.forEach(
+        (nama,siswaIndex) => {
+
+            let total = 0;
+
+            let row =
+                `<tr>`;
+
+            row +=
+                `<td>${siswaIndex + 1}</td>`;
+
+            row +=
+                `<td class="nama ${
+                    siswaLunas.includes(
+                        siswaIndex
+                    )
+                    ? "lunas"
+                    : ""
+                }">
+                    ${nama}
+                </td>`;
+
+            bulan.forEach(
+                (namaBulan,bulanIndex) => {
+
+                    const data =
+                        cariPembayaran(
+                            siswaIndex,
+                            bulanIndex
+                        );
+
+                    if (data) {
+
+                        total +=
+                            Number(
+                                data.nominal
+                            );
+
+                        row += `
+                            <td>
+                                <div class="bayar">
+                                    ✓
+                                </div>
+                            </td>
+                        `;
+
+                    } else {
+
+                        row += `
+                            <td>
+                                <div class="belum">
+                                    -
+                                </div>
+                            </td>
+                        `;
+
+                    }
+
+                }
+            );
+
+            row +=
+                `<td><strong>
+                    ${rupiah(total)}
+                </strong></td>`;
+
+            row +=
+                `</tr>`;
+
+            tbody.innerHTML += row;
+
+        }
+    );
+
+}
+
+
+/* ============================
+   SIMPAN PEMBAYARAN BARU
+============================ */
+
+function simpanPembayaran() {
+
+    const siswaIndex =
         Number(
             document.getElementById(
                 "pilihSiswa"
+            ).value
+        );
+
+    const bulanIndex =
+        Number(
+            document.getElementById(
+                "pilihBulan"
             ).value
         );
 
@@ -568,106 +876,322 @@ function tambahPembayaran() {
             ).value
         );
 
-    const tanggal =
+    const cara =
         document.getElementById(
-            "tanggalBayar"
+            "caraBayar"
         ).value;
 
-    if (!siswaId) {
-        alert("Pilih siswa terlebih dahulu.");
-        return;
-    }
 
-    if (!nominal) {
-        alert("Masukkan nominal pembayaran.");
-        return;
-    }
+    if (
+        isNaN(siswaIndex) ||
+        document.getElementById(
+            "pilihSiswa"
+        ).value === ""
+    ) {
 
-    if (!tanggal) {
-        alert("Pilih tanggal pembayaran.");
-        return;
-    }
-
-    pembayaran =
-        pembayaran.filter(
-            p => p.siswaId !== siswaId
+        alert(
+            "Pilih nama siswa terlebih dahulu."
         );
 
+        return;
+    }
+
+
+    if (
+        isNaN(bulanIndex) ||
+        document.getElementById(
+            "pilihBulan"
+        ).value === ""
+    ) {
+
+        alert(
+            "Pilih bulan terlebih dahulu."
+        );
+
+        return;
+    }
+
+
+    if (!nominal || nominal <= 0) {
+
+        alert(
+            "Masukkan nominal pembayaran."
+        );
+
+        return;
+    }
+
+
+    const sudahAda =
+        cariPembayaran(
+            siswaIndex,
+            bulanIndex
+        );
+
+
+    if (sudahAda) {
+
+        alert(
+            "Pembayaran bulan tersebut sudah tercatat."
+        );
+
+        return;
+    }
+
+
     pembayaran.push({
-        siswaId: siswaId,
+
+        siswa: siswaIndex,
+
+        bulan: bulanIndex,
+
         nominal: nominal,
-        tanggal: tanggal
+
+        cara: cara
+
     });
 
-    localStorage.setItem(
-        "pembayaranDanaKelas",
-        JSON.stringify(pembayaran)
+
+    simpanData();
+
+    tampilkanTabel();
+
+    tampilkanRiwayat();
+
+    hitungSemua();
+
+    alert(
+        "Pembayaran berhasil dicatat."
     );
 
-    document.getElementById(
-        "nominal"
-    ).value = "";
-
-    tampilkanPembayaran();
-    tampilkanSiswa();
-    hitungRingkasan();
-
-    alert("Pembayaran berhasil disimpan.");
 }
 
 
-/* =========================
-   TAMPILKAN PEMBAYARAN
-========================= */
+/* ============================
+   RIWAYAT PEMBAYARAN
+============================ */
 
-function tampilkanPembayaran() {
+function tampilkanRiwayat() {
 
     const tempat =
         document.getElementById(
-            "daftarPembayaran"
+            "riwayatPembayaran"
         );
 
-    if (pembayaran.length === 0) {
+    if (
+        pembayaran.length ===
+        dataAwal.flat().filter(
+            x => x === 1
+        ).length
+    ) {
 
         tempat.innerHTML =
-            '<div class="kosong">Belum ada pembayaran.</div>';
+            "Belum ada pembayaran baru.";
 
         return;
     }
 
-    tempat.innerHTML = pembayaran.map(p => {
 
-        const s =
-            siswa.find(
-                x => x.id === p.siswaId
-            );
+    /*
+    Hanya menampilkan pembayaran
+    yang bukan Data awal.
+    */
 
-        if (!s) return "";
+    const baru =
+        pembayaran.filter(
+            p => p.cara !== "Data awal"
+        );
 
-        return `
-            <div class="siswa-item">
 
-                <strong>${s.nama}</strong><br>
+    if (!baru.length) {
 
-                <span class="sudah">
-                    ✅ ${rupiah(p.nominal)}
-                </span>
+        tempat.innerHTML =
+            "Belum ada pembayaran baru.";
 
-                <br>
-                <span class="small">
-                    ${p.tanggal}
-                </span>
+        return;
+    }
 
-            </div>
-        `;
 
-    }).join("");
+    tempat.innerHTML = "";
+
+
+    baru
+        .slice()
+        .reverse()
+        .forEach(
+            p => {
+
+                const kelas =
+                    p.cara === "Cash"
+                    ? "cash"
+                    : "transfer";
+
+                tempat.innerHTML += `
+
+                    <div class="item-pembayaran">
+
+                        <strong>
+                            ${siswa[p.siswa]}
+                        </strong>
+
+                        <br>
+
+                        ${bulan[p.bulan]}
+
+                        <br>
+
+                        ${rupiah(p.nominal)}
+
+                        <br>
+
+                        <span class="${kelas}">
+                            ${
+                                p.cara === "Cash"
+                                ? "💵 Cash"
+                                : "🏦 Transfer"
+                            }
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
 }
 
 
-/* =========================
+/* ============================
+   PENGELUARAN
+============================ */
+
+let pengeluaran = [
+
+    {
+        keperluan:
+            "Snack Burger 17 Agustus",
+
+        jumlah:
+            500000,
+
+        tanggal:
+            "17/08/2026"
+    },
+
+    {
+        keperluan:
+            "Tali rapia rumbai-rumbai",
+
+        jumlah:
+            130000,
+
+        tanggal:
+            "17/08/2026"
+    },
+
+    {
+        keperluan:
+            "Fotocopy ulangan",
+
+        jumlah:
+            54000,
+
+        tanggal:
+            "20/08/2026"
+    },
+
+    {
+        keperluan:
+            "Fotocopy modul dan soal",
+
+        jumlah:
+            62500,
+
+        tanggal:
+            "02/09/2026"
+    }
+
+];
+
+
+let tambahanPengeluaran =
+    JSON.parse(
+        localStorage.getItem(
+            "danaKelas3C_pengeluaran"
+        )
+    ) || [];
+
+
+/* ============================
+   TAMPILKAN PENGELUARAN
+============================ */
+
+function tampilkanPengeluaran() {
+
+    const semua =
+        pengeluaran.concat(
+            tambahanPengeluaran
+        );
+
+    const tbody =
+        document.getElementById(
+            "tabelPengeluaran"
+        );
+
+    tbody.innerHTML = "";
+
+    semua.forEach(
+        (p,index) => {
+
+            tbody.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        ${index + 1}
+                    </td>
+
+                    <td>
+                        ${p.keperluan}
+                    </td>
+
+                    <td>
+                        ${rupiah(p.jumlah)}
+                    </td>
+
+                    <td>
+                        ${p.tanggal}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    const total =
+        semua.reduce(
+            (sum,p) =>
+                sum +
+                Number(p.jumlah),
+            0
+        );
+
+
+    document.getElementById(
+        "totalPengeluaran"
+    ).textContent =
+        rupiah(total);
+
+}
+
+
+/* ============================
    TAMBAH PENGELUARAN
-========================= */
+============================ */
 
 function tambahPengeluaran() {
 
@@ -688,33 +1212,61 @@ function tambahPengeluaran() {
             "tanggalKeluar"
         ).value;
 
+
     if (!keperluan) {
-        alert("Masukkan keperluan.");
+
+        alert(
+            "Masukkan keperluan."
+        );
+
         return;
     }
+
 
     if (!jumlah) {
-        alert("Masukkan jumlah uang.");
+
+        alert(
+            "Masukkan jumlah uang."
+        );
+
         return;
     }
+
 
     if (!tanggal) {
-        alert("Pilih tanggal.");
+
+        alert(
+            "Pilih tanggal."
+        );
+
         return;
     }
 
+
     tambahanPengeluaran.push({
-        keperluan: keperluan,
-        jumlah: jumlah,
-        tanggal: tanggal
+
+        keperluan:
+            keperluan,
+
+        jumlah:
+            jumlah,
+
+        tanggal:
+            tanggal
+
     });
 
+
     localStorage.setItem(
-        "tambahanPengeluaran",
+
+        "danaKelas3C_pengeluaran",
+
         JSON.stringify(
             tambahanPengeluaran
         )
+
     );
+
 
     document.getElementById(
         "keperluan"
@@ -724,109 +1276,93 @@ function tambahPengeluaran() {
         "uangKeluar"
     ).value = "";
 
-    tampilkanPengeluaran();
-    hitungRingkasan();
-
-    alert("Pengeluaran berhasil disimpan.");
-}
-
-
-/* =========================
-   TAMPILKAN PENGELUARAN
-========================= */
-
-function tampilkanPengeluaran() {
-
-    const tabel =
-        document.getElementById(
-            "tabelPengeluaran"
-        );
-
-    const semua =
-        pengeluaran.concat(
-            tambahanPengeluaran
-        );
-
-    tabel.innerHTML =
-        semua.map(
-            (p, index) => `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${p.keperluan}</td>
-                    <td>${rupiah(p.jumlah)}</td>
-                    <td>${p.tanggal}</td>
-                </tr>
-            `
-        ).join("");
-
-    const total =
-        semua.reduce(
-            (sum, p) =>
-                sum + Number(p.jumlah),
-            0
-        );
-
     document.getElementById(
-        "totalPengeluaran"
-    ).textContent =
-        rupiah(total);
+        "tanggalKeluar"
+    ).value = "";
+
+
+    tampilkanPengeluaran();
+
+    hitungSemua();
+
+
+    alert(
+        "Pengeluaran berhasil disimpan."
+    );
+
 }
 
 
-/* =========================
-   HITUNG RINGKASAN
-========================= */
+/* ============================
+   HITUNG TOTAL
+============================ */
 
-function hitungRingkasan() {
+function hitungSemua() {
 
-    const masuk =
+    const totalMasuk =
         pembayaran.reduce(
-            (sum, p) =>
-                sum + Number(p.nominal),
+            (sum,p) =>
+                sum +
+                Number(p.nominal),
             0
         );
+
 
     const semuaPengeluaran =
         pengeluaran.concat(
             tambahanPengeluaran
         );
 
-    const keluar =
+
+    const totalKeluar =
         semuaPengeluaran.reduce(
-            (sum, p) =>
-                sum + Number(p.jumlah),
+            (sum,p) =>
+                sum +
+                Number(p.jumlah),
             0
         );
 
+
     const saldo =
-        masuk - keluar;
+        totalMasuk -
+        totalKeluar;
+
 
     document.getElementById(
         "totalMasuk"
     ).textContent =
-        rupiah(masuk);
+        rupiah(totalMasuk);
+
 
     document.getElementById(
         "totalKeluar"
     ).textContent =
-        rupiah(keluar);
+        rupiah(totalKeluar);
+
 
     document.getElementById(
         "saldo"
     ).textContent =
         rupiah(saldo);
+
 }
 
 
-/* =========================
-   JALANKAN SAAT DIBUKA
-========================= */
+/* ============================
+   MULAI APLIKASI
+============================ */
 
-tampilkanSiswa();
-tampilkanPilihanSiswa();
-tampilkanPembayaran();
+isiPilihanSiswa();
+
+isiPilihanBulan();
+
+tampilkanTabel();
+
+tampilkanRiwayat();
+
 tampilkanPengeluaran();
-hitungRingkasan();
+
+hitungSemua();
 
 </script>
 
